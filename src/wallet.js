@@ -230,7 +230,7 @@ class Wallet {
       const postMeltRequest = {
         proofs: scndProofs.flat(),
         amount: amount,
-        invoice: invoice,
+        pr: invoice,
       };
 
       const postMeltResponse = await axios.post(
@@ -254,7 +254,7 @@ class Wallet {
       pr: invoice,
     };
     try {
-      const checkFeesResponse = await axios.post(
+      const checkFeesResponse = await axios.get(
         `${MINT_SERVER}/checkfees`,
         getCheckFeesRequest
       );
