@@ -34,41 +34,6 @@ function step3Alice(C_, r, A) {
   return C;
 }
 
-// async function hashToCurve(secretMessage) {
-//     console.log('### secretMessage', utils.bytesToHex(secretMessage))
-//     let point
-//     while (!point) {
-//         const hash = await utils.sha256(secretMessage)
-//         const hashHex = utils.bytesToHex(hash)
-//         const pointX = '02' + hashHex
-//         console.log('### pointX', pointX)
-//         try {
-//             point = Point.fromHex(pointX)
-//             // console.log('### point', point.toHex())
-//         } catch (error) {
-//             secretMessage = await utils.sha256(secretMessage)
-//         }
-//     }
-//     return point
-// }
-
-// async function step1Alice(secretMessage, r = NaN) {
-//     const Y = await hashToCurve(secretMessage)
-//     if (r === NaN){
-//         r = bytesToNumber(utils.randomPrivateKey())
-//     }
-//     const P = Point.fromPrivateKey(r)
-//     const B_ = Y.add(P)
-//     return {B_: B_.toHex(true), r}
-//   }
-
-// function step3Alice(C_, r, A) {
-//     const rInt = bytesToNumber(r)
-//     // const rInt = BigInt(r)
-//     const C = C_.subtract(A.multiply(rInt))
-//     return C
-// }
-
 module.exports = {
   hashToCurve,
   step1Alice,
