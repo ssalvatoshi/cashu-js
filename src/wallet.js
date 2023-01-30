@@ -230,7 +230,7 @@ class Wallet {
       const postMeltRequest = {
         proofs: scndProofs.flat(),
         amount: amount,
-        invoice: invoice,
+        pr: invoice,
       };
 
       const postMeltResponse = await axios.post(
