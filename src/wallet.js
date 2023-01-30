@@ -254,7 +254,7 @@ class Wallet {
       pr: invoice,
     };
     try {
-      const checkFeesResponse = await axios.get(
+      const checkFeesResponse = await axios.post(
         `${MINT_SERVER}/checkfees`,
         getCheckFeesRequest
       );
