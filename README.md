@@ -91,10 +91,11 @@ node test/test_crypto.js
 
 ## Use in browser
 
-Install browserify using `npm install --global browserify` and run
+Install browserify and other packages using `npm install --save-dev` and run
 
 ```sh
-browserify src/index.js -o dist/bundle.js
+browserify -p common-shakeify src/wallet.js -o dist/bundle.js
+node_modules/terser/bin/terser  -c toplevel,sequences=false --mangle -- dist/bundle.js > dist/bundle.min.js
 ```
 
 Check the [/dist](/dist/) directory for an example HTML.
