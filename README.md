@@ -51,7 +51,7 @@ Get a Lightning invoice:
 node src/index.js invoice 420
 ```
 
-Save the `<invoice_hash>` for the next step (or compute it yourself from the bolt11 invoice).
+Save the `<invoice_hash>` for the next step (or compute it yourself from the bolt11 invoice). Note: This step will fail if you've set `LIGHTNING=FALSE` in the mint. Just skip to the next step if so. 
 
 After paying it, enter:
 
