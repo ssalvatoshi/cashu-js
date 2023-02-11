@@ -14,6 +14,7 @@ var app = new Vue({
   methods: {
     checkInvoice: async function () {
       try {
+        this.status = "";
         var bolt11 = this.invoice;
         const wallet = new Wallet("");
         this.decodedInvoice = wallet.decodeInvoice(bolt11);
@@ -48,6 +49,7 @@ var app = new Vue({
 
         wallet.loadMint();
         wallet.proofs = token.proofs;
+        this.status = "Paying invoice ...";
         await wallet.melt(this.invoice);
         this.status = "Invoice paid ⚡️";
       } catch (error) {
