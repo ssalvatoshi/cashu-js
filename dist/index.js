@@ -38,9 +38,9 @@ var app = new Vue({
           this.decodedInvoice.satoshis + (await wallet.checkFees(this.invoice));
 
         // check if tokens are worth the payAmount
-        if (wallet.sumProofs(token.proofs) != amountWithFees) {
+        if (wallet.sumProofs(token.proofs) < amountWithFees) {
           throw Error(
-            `Token amount not correct (${wallet.sumProofs(
+            `Token amount too low (${wallet.sumProofs(
               token.proofs
             )} instead of ${amountWithFees})`
           );

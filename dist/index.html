@@ -12,24 +12,58 @@
     <div id="app">
       <div class="container text-center" style="padding: 2rem">
         <div class="row">
-          <p>Pay Lightning invoices by providing a Cashu token.</p>
+          <p>Pay Lightning invoices with Cashu tokens.</p>
         </div>
         <div class="row">
-          <p>
-            Enter a Lightning invoice:
-            <input type="text" v-model="invoice" id="invoice" />
-            <button v-on:click="checkInvoice" v-if="invoice">Check</button>
-          </p>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">⚡️</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter a Lightning invoice"
+              v-model="invoice"
+              id="invoice"
+            />
+            <div class="input-group-append">
+              <button
+                type="button"
+                class="btn btn-primary"
+                v-on:click="checkInvoice"
+                v-if="invoice"
+              >
+                Check
+              </button>
+            </div>
+          </div>
         </div>
         <div class="row" v-if="amountLabel">
           <p>{{amountLabel}}</p>
         </div>
         <div class="row" v-if="showTokenInput">
-          <p>
-            Enter a Cashu token:
-            <input type="text" v-model="token" id="token" />
-            <button v-on:click="pay" v-if="token">Pay</button>
-          </p>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">🥜</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter a Cashu token"
+              v-model="token"
+              id="token"
+            />
+            <div class="input-group-append">
+              <button
+                type="button"
+                class="btn btn-primary"
+                v-on:click="pay"
+                v-if="token"
+              >
+                Pay
+              </button>
+            </div>
+          </div>
         </div>
         <div class="row" v-if="status">
           <p style="font-weight: bold">{{status}}</p>
