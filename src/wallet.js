@@ -12,8 +12,14 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 }
 
 class Wallet {
-  constructor() {
+  constructor(mintUrl = null) {
     this.proofs = JSON.parse(localStorage.getItem("proofs") || "[]");
+
+    if (mintUrl == null) {
+      this.mintUrl = MINT_SERVER;
+    } else {
+      this.mintUrl = mintUrl;
+    }
   }
 
   // --------- GET /keys
@@ -21,13 +27,19 @@ class Wallet {
   async loadMint() {
     /* Gets public keys of the mint */
     this.keys = await this.getKeysApi();
+    this.keysets = await this.getKeysetsApi();
+    this.mints = [{ url: this.mintUrl, keysets: this.keysets }];
   }
 
   async getKeysApi() {
-    const { data } = await axios.get(`${MINT_SERVER}/keys`);
+    const { data } = await axios.get(`${this.mintUrl}/keys`);
     return data;
   }
 
+  async getKeysetsApi() {
+    const { data } = await axios.get(`${this.mintUrl}/keysets`);
+    return data.keysets;
+  }
   // --------- POST /mint
 
   /* 
@@ -45,7 +57,7 @@ class Wallet {
     let { outputs, rs } = await this.constructOutputs(amounts, secrets);
     let postMintRequest = { outputs: outputs };
     const postMintResponse = await axios.post(
-      `${MINT_SERVER}/mint`,
+      `${this.mintUrl}/mint`,
       postMintRequest,
       {
         params: {
@@ -80,7 +92,7 @@ class Wallet {
   /* Request to mint new tokens of a given amount. Mint will return a Lightning invoice that the user has to pay. */
 
   async requestMintApi(amount) {
-    const getMintResponse = await axios.get(`${MINT_SERVER}/mint`, {
+    const getMintResponse = await axios.get(`${this.mintUrl}/mint`, {
       params: {
         amount: amount,
       },
@@ -122,7 +134,7 @@ class Wallet {
       };
 
       const postSplitResponse = await axios.post(
-        `${MINT_SERVER}/split`,
+        `${this.mintUrl}/split`,
         postSplitRequest
       );
       this.assertMintError(postSplitResponse);
@@ -234,7 +246,7 @@ class Wallet {
       };
 
       const postMeltResponse = await axios.post(
-        `${MINT_SERVER}/melt`,
+        `${this.mintUrl}/melt`,
         postMeltRequest
       );
       this.assertMintError(postMeltResponse);
@@ -255,7 +267,7 @@ class Wallet {
     };
     try {
       const checkFeesResponse = await axios.post(
-        `${MINT_SERVER}/checkfees`,
+        `${this.mintUrl}/checkfees`,
         getCheckFeesRequest
       );
       this.assertMintError(checkFeesResponse);
@@ -326,7 +338,19 @@ class Wallet {
   }
 
   serializeProofs(proofs) {
-    return btoa(JSON.stringify(proofs));
+    // unique keyset IDs of proofs
+    var uniqueIds = [...new Set(proofs.map((p) => p.id))];
+    // mints that have any of the keyset IDs
+    var mints_keysets = this.mints.filter((m) =>
+      m.keysets.some((r) => uniqueIds.indexOf(r) >= 0)
+    );
+    // what we put into the JSON
+    var mints = mints_keysets.map((m) => [{ url: m.url, ids: m.keysets }][0]);
+    var token = {
+      proofs: proofs,
+      mints,
+    };
+    return btoa(JSON.stringify(token));
   }
 
   // local storage
@@ -356,4 +380,8 @@ class Wallet {
   }
 }
 
-module.exports.Wallet = Wallet;
+if (module && module.exports) {
+  module.exports.Wallet = Wallet;
+} else {
+  window.Wallet = Wallet;
+}

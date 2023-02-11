@@ -85,4 +85,16 @@ node src/index.js receive W3siaWQiOiJEU0FsOW52dnlm...
 ```
 
 ##### Run tests
-...
+```sh
+node tests/test_crypto.js
+```
+
+## Use in browser
+
+Install browserify using `npm install browserify` and run
+
+```sh
+browserify src/index.js -o dist/bundle.js
+```
+
+Check the [/dist](/dist/) directory for an example HTML.

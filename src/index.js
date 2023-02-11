@@ -4,11 +4,10 @@ MINT_HOST = "127.0.0.1";
 MINT_PORT = 3338;
 MINT_SERVER = `http://${MINT_HOST}:${MINT_PORT}`;
 
-console.log(`Using mint '${MINT_SERVER}'`);
-
 async function run() {
   const wallet = new Wallet();
   await wallet.loadMint();
+  console.log(`Using mint '${wallet.mintUrl}'`);
 
   const command = process.argv[2];
   switch (command) {
@@ -38,8 +37,8 @@ async function run() {
       break;
     case "receive":
       var tokenBase64 = process.argv[3];
-      var proofs = JSON.parse(atob(tokenBase64));
-      await wallet.redeem(proofs);
+      var token = JSON.parse(atob(tokenBase64));
+      await wallet.redeem(token.proofs);
       break;
     case "pay":
       var invoice = process.argv[3];
