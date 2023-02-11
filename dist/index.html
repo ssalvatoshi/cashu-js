@@ -8,9 +8,12 @@
   async function pay() {
     var invoice = document.getElementById("invoice").value;
     var tokenBase64 = document.getElementById("token").value;
+    var tokenBase64 =
+      "eyJwcm9vZnMiOiBbeyJpZCI6ICJJMnlOK2lSWWZrelQiLCAiYW1vdW50IjogMSwgInNlY3JldCI6ICJ1bjdnUHhpWkRoWG5aVG9Wb0QxaXdnIiwgIkMiOiAiMDJmYzc0NzlhNGYzYTQ5MDU3MGM3YTVkOTFiNGVlZDQyMjlkMDBkY2JjZGNkODYyZjU2ZmVlZDM4YWM1NjZkYzk5In1dLCAibWludHMiOiBbeyJ1cmwiOiAiaHR0cHM6Ly84MzMzLnNwYWNlOjMzMzgiLCAiaWRzIjogWyJJMnlOK2lSWWZrelQiXX1dfQ==";
     var token = JSON.parse(atob(tokenBase64));
 
     try {
+      const mintUrl = token.mints[0].url;
       const wallet = new Wallet();
       wallet.loadMint();
       wallet.proofs = token.proofs;
