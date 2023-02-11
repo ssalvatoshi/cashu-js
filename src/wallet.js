@@ -383,4 +383,6 @@ class Wallet {
 if (module && module.exports) {
   module.exports.Wallet = Wallet;
 }
-window.Wallet = Wallet;
+try {
+  window.Wallet = Wallet;
+} catch (error) {}
