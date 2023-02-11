@@ -91,7 +91,7 @@ node tests/test_crypto.js
 
 ## Use in browser
 
-Install browserify using `npm install browserify` and run
+Install browserify using `npm install --global browserify` and run
 
 ```sh
 browserify src/index.js -o dist/bundle.js
