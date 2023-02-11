@@ -2,7 +2,7 @@
 "use strict";
 /*! noble-secp256k1 - MIT License (c) 2019 Paul Miller (paulmillr.com) */
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.utils = exports.schnorr = exports.verify = exports.signSync = exports.sign = exports.getSharedSecret = exports.recoverPublicKey = exports.getPublicKey = exports.Signature = exports.Point = exports.CURVE = void 0;
+exports.utils = /* common-shake removed: exports.schnorr = */ /* common-shake removed: exports.verify = */ /* common-shake removed: exports.signSync = */ /* common-shake removed: exports.sign = */ /* common-shake removed: exports.getSharedSecret = */ /* common-shake removed: exports.recoverPublicKey = */ /* common-shake removed: exports.getPublicKey = */ /* common-shake removed: exports.Signature = */ exports.Point = /* common-shake removed: exports.CURVE = */ void 0;
 const nodeCrypto = require("crypto");
 const _0n = BigInt(0);
 const _1n = BigInt(1);
@@ -19,7 +19,7 @@ const CURVE = Object.freeze({
     Gy: BigInt('32670510020758816978083085130507043184471273380659243275938904335757337482424'),
     beta: BigInt('0x7ae96a2b657c07106e64479eac3434e99cf0497512f58995c1396c28719501ee'),
 });
-exports.CURVE = CURVE;
+/* common-shake removed: exports.CURVE = */ void CURVE;
 function weistrass(x) {
     const { a, b } = CURVE;
     const x2 = mod(x * x);
@@ -483,7 +483,7 @@ class Signature {
         return numTo32bStr(this.r) + numTo32bStr(this.s);
     }
 }
-exports.Signature = Signature;
+/* common-shake removed: exports.Signature = */ void Signature;
 function concatBytes(...arrays) {
     if (!arrays.every((b) => b instanceof Uint8Array))
         throw new Error('Uint8Array list expected');
@@ -794,11 +794,11 @@ function normalizeSignature(signature) {
 function getPublicKey(privateKey, isCompressed = false) {
     return Point.fromPrivateKey(privateKey).toRawBytes(isCompressed);
 }
-exports.getPublicKey = getPublicKey;
+/* common-shake removed: exports.getPublicKey = */ void getPublicKey;
 function recoverPublicKey(msgHash, signature, recovery, isCompressed = false) {
     return Point.fromSignature(msgHash, signature, recovery).toRawBytes(isCompressed);
 }
-exports.recoverPublicKey = recoverPublicKey;
+/* common-shake removed: exports.recoverPublicKey = */ void recoverPublicKey;
 function isProbPub(item) {
     const arr = item instanceof Uint8Array;
     const str = typeof item === 'string';
@@ -820,7 +820,7 @@ function getSharedSecret(privateA, publicB, isCompressed = false) {
     b.assertValidity();
     return b.multiply(normalizePrivateKey(privateA)).toRawBytes(isCompressed);
 }
-exports.getSharedSecret = getSharedSecret;
+/* common-shake removed: exports.getSharedSecret = */ void getSharedSecret;
 function bits2int(bytes) {
     const slice = bytes.length > 32 ? bytes.slice(0, 32) : bytes;
     return bytesToNumber(slice);
@@ -870,7 +870,7 @@ async function sign(msgHash, privKey, opts = {}) {
         await drbg.reseed();
     return finalizeSig(sig, opts);
 }
-exports.sign = sign;
+/* common-shake removed: exports.sign = */ void sign;
 function signSync(msgHash, privKey, opts = {}) {
     const { seed, m, d } = initSigArgs(msgHash, privKey, opts.extraEntropy);
     let sig;
@@ -880,7 +880,7 @@ function signSync(msgHash, privKey, opts = {}) {
         drbg.reseedSync();
     return finalizeSig(sig, opts);
 }
-exports.signSync = signSync;
+/* common-shake removed: exports.signSync = */ void signSync;
 const vopts = { strict: true };
 function verify(signature, msgHash, publicKey, opts = vopts) {
     let sig;
@@ -912,7 +912,7 @@ function verify(signature, msgHash, publicKey, opts = vopts) {
     const v = mod(R.x, n);
     return v === r;
 }
-exports.verify = verify;
+/* common-shake removed: exports.verify = */ void verify;
 function schnorrChallengeFinalize(ch) {
     return mod(bytesToNumber(ch), CURVE.n);
 }
@@ -1046,7 +1046,7 @@ function schnorrVerifySync(signature, message, publicKey) {
         return false;
     }
 }
-exports.schnorr = {
+/* common-shake removed: exports.schnorr = */ void {
     Signature: SchnorrSignature,
     getPublicKey: schnorrGetPublicKey,
     sign: schnorrSign,
@@ -3349,7 +3349,7 @@ module.exports = {
   isDate: isDate,
   isFile: isFile,
   isBlob: isBlob,
-  isFunction: isFunction,
+  /* common-shake removed: isFunction: isFunction */
   isStream: isStream,
   isURLSearchParams: isURLSearchParams,
   isStandardBrowserEnv: isStandardBrowserEnv,
@@ -3357,11 +3357,11 @@ module.exports = {
   merge: merge,
   extend: extend,
   trim: trim,
-  stripBOM: stripBOM,
+  /* common-shake removed: stripBOM: stripBOM */
   inherits: inherits,
   toFlatObject: toFlatObject,
-  kindOf: kindOf,
-  kindOfTest: kindOfTest,
+  /* common-shake removed: kindOf: kindOf */
+  /* common-shake removed: kindOfTest: kindOfTest */
   endsWith: endsWith,
   toArray: toArray,
   isTypedArray: isTypedArray,
@@ -3664,13 +3664,13 @@ function fromWords (words) {
 }
 
 module.exports = {
-  decodeUnsafe: decodeUnsafe,
+  /* common-shake removed: decodeUnsafe: decodeUnsafe */
   decode: decode,
   encode: encode,
-  toWordsUnsafe: toWordsUnsafe,
+  /* common-shake removed: toWordsUnsafe: toWordsUnsafe */
   toWords: toWords,
-  fromWordsUnsafe: fromWordsUnsafe,
-  fromWords: fromWords
+  /* common-shake removed: fromWordsUnsafe: fromWordsUnsafe */
+  /* common-shake removed: fromWords: fromWords */
 }
 
 },{}],36:[function(require,module,exports){
@@ -4822,7 +4822,7 @@ function reverseBuffer(buffer) {
   }
   return buffer;
 }
-exports.reverseBuffer = reverseBuffer;
+/* common-shake removed: exports.reverseBuffer = */ void reverseBuffer;
 function keyValsToBuffer(keyVals) {
   const buffers = keyVals.map(keyValToBuffer);
   buffers.push(Buffer.from([0]));
@@ -4843,7 +4843,7 @@ function keyValToBuffer(keyVal) {
   keyVal.value.copy(buffer, keyVarIntLen + keyLen + valVarIntLen);
   return buffer;
 }
-exports.keyValToBuffer = keyValToBuffer;
+/* common-shake removed: exports.keyValToBuffer = */ void keyValToBuffer;
 // https://github.com/feross/buffer/blob/master/index.js#L1127
 function verifuint(value, max) {
   if (typeof value !== 'number')
@@ -5589,7 +5589,7 @@ var GlobalTypes;
   GlobalTypes[(GlobalTypes['UNSIGNED_TX'] = 0)] = 'UNSIGNED_TX';
   GlobalTypes[(GlobalTypes['GLOBAL_XPUB'] = 1)] = 'GLOBAL_XPUB';
 })((GlobalTypes = exports.GlobalTypes || (exports.GlobalTypes = {})));
-exports.GLOBAL_TYPE_NAMES = ['unsignedTx', 'globalXpub'];
+/* common-shake removed: exports.GLOBAL_TYPE_NAMES = */ void ['unsignedTx', 'globalXpub'];
 var InputTypes;
 (function(InputTypes) {
   InputTypes[(InputTypes['NON_WITNESS_UTXO'] = 0)] = 'NON_WITNESS_UTXO';
@@ -5610,7 +5610,7 @@ var InputTypes;
   InputTypes[(InputTypes['TAP_INTERNAL_KEY'] = 23)] = 'TAP_INTERNAL_KEY';
   InputTypes[(InputTypes['TAP_MERKLE_ROOT'] = 24)] = 'TAP_MERKLE_ROOT';
 })((InputTypes = exports.InputTypes || (exports.InputTypes = {})));
-exports.INPUT_TYPE_NAMES = [
+/* common-shake removed: exports.INPUT_TYPE_NAMES = */ void [
   'nonWitnessUtxo',
   'witnessUtxo',
   'partialSig',
@@ -5638,7 +5638,7 @@ var OutputTypes;
   OutputTypes[(OutputTypes['TAP_BIP32_DERIVATION'] = 7)] =
     'TAP_BIP32_DERIVATION';
 })((OutputTypes = exports.OutputTypes || (exports.OutputTypes = {})));
-exports.OUTPUT_TYPE_NAMES = [
+/* common-shake removed: exports.OUTPUT_TYPE_NAMES = */ void [
   'redeemScript',
   'witnessScript',
   'bip32Derivation',
@@ -5778,7 +5778,7 @@ function defaultVersionSetter(version, txBuf) {
   txBuf.writeUInt32LE(version, 0);
   return txBuf;
 }
-exports.defaultVersionSetter = defaultVersionSetter;
+/* common-shake removed: exports.defaultVersionSetter = */ void defaultVersionSetter;
 function defaultLocktimeSetter(locktime, txBuf) {
   if (!Buffer.isBuffer(txBuf) || txBuf.length < 4) {
     throw new Error('Set Locktime: Invalid Transaction');
@@ -5786,7 +5786,7 @@ function defaultLocktimeSetter(locktime, txBuf) {
   txBuf.writeUInt32LE(locktime, txBuf.length - 4);
   return txBuf;
 }
-exports.defaultLocktimeSetter = defaultLocktimeSetter;
+/* common-shake removed: exports.defaultLocktimeSetter = */ void defaultLocktimeSetter;
 
 }).call(this)}).call(this,{"isBuffer":require("../../../../../../../../opt/homebrew/lib/node_modules/browserify/node_modules/is-buffer/index.js")})
 },{"../../../../../../../../opt/homebrew/lib/node_modules/browserify/node_modules/is-buffer/index.js":322,"./converter":39}],66:[function(require,module,exports){
@@ -6465,9 +6465,7 @@ exports.BufferReader =
   exports.BufferWriter =
   exports.cloneBuffer =
   exports.reverseBuffer =
-  exports.writeUInt64LE =
-  exports.readUInt64LE =
-  exports.varuint =
+  /* common-shake removed: exports.writeUInt64LE = */ /* common-shake removed: exports.readUInt64LE = */ exports.varuint =
     void 0;
 const types = require('./types');
 const { typeforce } = types;
@@ -6490,14 +6488,14 @@ function readUInt64LE(buffer, offset) {
   verifuint(b + a, 0x001fffffffffffff);
   return b + a;
 }
-exports.readUInt64LE = readUInt64LE;
+/* common-shake removed: exports.readUInt64LE = */ void readUInt64LE;
 function writeUInt64LE(buffer, value, offset) {
   verifuint(value, 0x001fffffffffffff);
   buffer.writeInt32LE(value & -1, offset);
   buffer.writeUInt32LE(Math.floor(value / 0x100000000), offset + 4);
   return offset + 8;
 }
-exports.writeUInt64LE = writeUInt64LE;
+/* common-shake removed: exports.writeUInt64LE = */ void writeUInt64LE;
 function reverseBuffer(buffer) {
   if (buffer.length < 1) return buffer;
   let j = buffer.length - 1;
@@ -6785,27 +6783,18 @@ const tweakAddVectors = [
 },{"buffer":305}],73:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
-exports.initEccLib =
-  exports.Transaction =
-  exports.opcodes =
-  exports.Psbt =
-  exports.Block =
-  exports.script =
-  exports.payments =
-  exports.networks =
-  exports.crypto =
-  exports.address =
+/* common-shake removed: exports.initEccLib = */ /* common-shake removed: exports.Transaction = */ /* common-shake removed: exports.opcodes = */ /* common-shake removed: exports.Psbt = */ /* common-shake removed: exports.Block = */ /* common-shake removed: exports.script = */ /* common-shake removed: exports.payments = */ /* common-shake removed: exports.networks = */ /* common-shake removed: exports.crypto = */ exports.address =
     void 0;
 const address = require('./address');
 exports.address = address;
 const crypto = require('./crypto');
-exports.crypto = crypto;
+/* common-shake removed: exports.crypto = */ void crypto;
 const networks = require('./networks');
-exports.networks = networks;
+/* common-shake removed: exports.networks = */ void networks;
 const payments = require('./payments');
-exports.payments = payments;
+/* common-shake removed: exports.payments = */ void payments;
 const script = require('./script');
-exports.script = script;
+/* common-shake removed: exports.script = */ void script;
 var block_1 = require('./block');
 Object.defineProperty(exports, 'Block', {
   enumerable: true,
@@ -7043,8 +7032,7 @@ for (const op of Object.keys(OPS)) {
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.tweakKey =
-  exports.tapTweakHash =
-  exports.tapleafHash =
+  /* common-shake removed: exports.tapTweakHash = */ exports.tapleafHash =
   exports.findScriptPath =
   exports.toHashTree =
   exports.rootHashFromPath =
@@ -7131,7 +7119,7 @@ function tapTweakHash(pubKey, h) {
     buffer_1.Buffer.concat(h ? [pubKey, h] : [pubKey]),
   );
 }
-exports.tapTweakHash = tapTweakHash;
+/* common-shake removed: exports.tapTweakHash = */ void tapTweakHash;
 function tweakKey(pubKey, h) {
   if (!buffer_1.Buffer.isBuffer(pubKey)) return null;
   if (pubKey.length !== 32) return null;
@@ -10243,13 +10231,10 @@ function range(n) {
 'use strict';
 Object.defineProperty(exports, '__esModule', { value: true });
 exports.checkTaprootInputForSigs =
-  exports.tapTreeFromList =
-  exports.tapTreeToList =
-  exports.tweakInternalPubKey =
+  /* common-shake removed: exports.tapTreeFromList = */ /* common-shake removed: exports.tapTreeToList = */ exports.tweakInternalPubKey =
   exports.checkTaprootOutputFields =
   exports.checkTaprootInputFields =
-  exports.isTaprootOutput =
-  exports.isTaprootInput =
+  /* common-shake removed: exports.isTaprootOutput = */ exports.isTaprootInput =
   exports.serializeTaprootSignature =
   exports.tapScriptFinalizer =
   exports.toXOnly =
@@ -10319,7 +10304,7 @@ function isTaprootOutput(output, script) {
     )
   );
 }
-exports.isTaprootOutput = isTaprootOutput;
+/* common-shake removed: exports.isTaprootOutput = */ void isTaprootOutput;
 function checkTaprootInputFields(inputData, newInputData, action) {
   checkMixedTaprootAndNonTaprootInputFields(inputData, newInputData, action);
   checkIfTapLeafInTree(inputData, newInputData, action);
@@ -10379,7 +10364,7 @@ function tapTreeToList(tree) {
     );
   return _tapTreeToList(tree);
 }
-exports.tapTreeToList = tapTreeToList;
+/* common-shake removed: exports.tapTreeToList = */ void tapTreeToList;
 /**
  * Convert a BIP371 TapLeaf list to a TapTree (binary).
  * @param leaves a list of tapleaves where each element of the list is (according to BIP371):
@@ -10396,7 +10381,7 @@ function tapTreeFromList(leaves = []) {
     };
   return instertLeavesInTree(leaves);
 }
-exports.tapTreeFromList = tapTreeFromList;
+/* common-shake removed: exports.tapTreeFromList = */ void tapTreeFromList;
 function checkTaprootInputForSigs(input, action) {
   const sigs = extractTaprootSigs(input);
   return sigs.some(sig =>
@@ -16277,13 +16262,13 @@ function getTagsObject (tags) {
 }
 
 module.exports = {
-  encode,
+  /* common-shake removed: encode */
   decode,
-  sign,
-  satToHrp,
-  millisatToHrp,
-  hrpToSat,
-  hrpToMillisat
+  /* common-shake removed: sign */
+  /* common-shake removed: satToHrp */
+  /* common-shake removed: millisatToHrp */
+  /* common-shake removed: hrpToSat */
+  /* common-shake removed: hrpToMillisat */
 }
 
 },{"bech32":35,"bitcoinjs-lib":73,"bn.js":97,"create-hash":104,"lodash/cloneDeep":232,"safe-buffer":269,"secp256k1":270}],99:[function(require,module,exports){
@@ -20456,37 +20441,37 @@ utils.intFromLE = intFromLE;
 
 },{"bn.js":97,"minimalistic-assert":250,"minimalistic-crypto-utils":251}],120:[function(require,module,exports){
 module.exports={
-  "name": "elliptic",
+  /* common-shake removed: "name": "elliptic" */
   "version": "6.5.4",
-  "description": "EC cryptography",
-  "main": "lib/elliptic.js",
-  "files": [
+  /* common-shake removed: "description": "EC cryptography" */
+  /* common-shake removed: "main": "lib/elliptic.js" */
+  /* common-shake removed: "files": [
     "lib"
-  ],
-  "scripts": {
+  ] */
+  /* common-shake removed: "scripts": {
     "lint": "eslint lib test",
     "lint:fix": "npm run lint -- --fix",
     "unit": "istanbul test _mocha --reporter=spec test/index.js",
     "test": "npm run lint && npm run unit",
     "version": "grunt dist && git add dist/"
-  },
-  "repository": {
+  } */
+  /* common-shake removed: "repository": {
     "type": "git",
     "url": "git@github.com:indutny/elliptic"
-  },
-  "keywords": [
+  } */
+  /* common-shake removed: "keywords": [
     "EC",
     "Elliptic",
     "curve",
     "Cryptography"
-  ],
-  "author": "Fedor Indutny <fedor@indutny.com>",
-  "license": "MIT",
-  "bugs": {
+  ] */
+  /* common-shake removed: "author": "Fedor Indutny <fedor@indutny.com>" */
+  /* common-shake removed: "license": "MIT" */
+  /* common-shake removed: "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
-  },
-  "homepage": "https://github.com/indutny/elliptic",
-  "devDependencies": {
+  } */
+  /* common-shake removed: "homepage": "https://github.com/indutny/elliptic" */
+  /* common-shake removed: "devDependencies": {
     "brfs": "^2.0.2",
     "coveralls": "^3.1.0",
     "eslint": "^7.6.0",
@@ -20500,8 +20485,8 @@ module.exports={
     "grunt-saucelabs": "^9.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^8.0.1"
-  },
-  "dependencies": {
+  } */
+  /* common-shake removed: "dependencies": {
     "bn.js": "^4.11.9",
     "brorand": "^1.1.0",
     "hash.js": "^1.0.0",
@@ -20509,7 +20494,7 @@ module.exports={
     "inherits": "^2.0.4",
     "minimalistic-assert": "^1.0.1",
     "minimalistic-crypto-utils": "^1.0.1"
-  }
+  } */
 }
 
 },{}],121:[function(require,module,exports){
@@ -22497,7 +22482,7 @@ exports.maj32 = maj32;
 function p32(x, y, z) {
   return x ^ y ^ z;
 }
-exports.p32 = p32;
+/* common-shake removed: exports.p32 = */ void p32;
 
 function s0_256(x) {
   return rotr32(x, 2) ^ rotr32(x, 13) ^ rotr32(x, 22);
@@ -26506,9 +26491,9 @@ utils.encode = function encode(arr, enc) {
 
   exports.LocalStorage = LocalStorage;
 
-  exports.JSONStorage = JSONStorage;
+  /* common-shake removed: exports.JSONStorage = */ void JSONStorage;
 
-  exports.QUOTA_EXCEEDED_ERR = QUOTA_EXCEEDED_ERR;
+  /* common-shake removed: exports.QUOTA_EXCEEDED_ERR = */ void QUOTA_EXCEEDED_ERR;
 
 }).call(this);
 
@@ -31518,8 +31503,8 @@ function chain (things, cb) {
   })(0, things.length) }
 
 },{"./bind-actor.js":282}],284:[function(require,module,exports){
-exports.asyncMap = require("./async-map")
-exports.bindActor = require("./bind-actor")
+/* common-shake removed: exports.asyncMap = */ void require("./async-map")
+/* common-shake removed: exports.bindActor = */ void require("./bind-actor")
 exports.chain = require("./chain")
 
 },{"./async-map":281,"./bind-actor":282,"./chain":283}],285:[function(require,module,exports){
@@ -32691,7 +32676,7 @@ function step3Alice(C_, r, A) {
 }
 
 module.exports = {
-  hashToCurve,
+  /* common-shake removed: hashToCurve */
   step1Alice,
   step3Alice,
 };
@@ -32726,7 +32711,7 @@ function hexToNumber(hex) {
 module.exports = {
   splitAmount,
   bytesToNumber,
-  hexToNumber,
+  /* common-shake removed: hexToNumber */
   bigIntStringify,
 };
 
@@ -33686,7 +33671,7 @@ module.exports = function isBuffer(arg) {
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 var formatRegExp = /%[sdj%]/g;
-exports.format = function(f) {
+/* common-shake removed: exports.format = */ void function(f) {
   if (!isString(f)) {
     var objects = [];
     for (var i = 0; i < arguments.length; i++) {
@@ -33728,7 +33713,7 @@ exports.format = function(f) {
 // Mark that a method should not be used.
 // Returns a modified function which warns once by default.
 // If --no-deprecation is set, then it is a no-op.
-exports.deprecate = function(fn, msg) {
+/* common-shake removed: exports.deprecate = */ void function(fn, msg) {
   // Allow for deprecating things in the process of starting up.
   if (isUndefined(global.process)) {
     return function() {
@@ -33761,7 +33746,7 @@ exports.deprecate = function(fn, msg) {
 
 var debugs = {};
 var debugEnviron;
-exports.debuglog = function(set) {
+/* common-shake removed: exports.debuglog = */ void function(set) {
   if (isUndefined(debugEnviron))
     debugEnviron = process.env.NODE_DEBUG || '';
   set = set.toUpperCase();
@@ -34116,42 +34101,42 @@ function reduceToSingleString(output, base, braces) {
 function isArray(ar) {
   return Array.isArray(ar);
 }
-exports.isArray = isArray;
+/* common-shake removed: exports.isArray = */ void isArray;
 
 function isBoolean(arg) {
   return typeof arg === 'boolean';
 }
-exports.isBoolean = isBoolean;
+/* common-shake removed: exports.isBoolean = */ void isBoolean;
 
 function isNull(arg) {
   return arg === null;
 }
-exports.isNull = isNull;
+/* common-shake removed: exports.isNull = */ void isNull;
 
 function isNullOrUndefined(arg) {
   return arg == null;
 }
-exports.isNullOrUndefined = isNullOrUndefined;
+/* common-shake removed: exports.isNullOrUndefined = */ void isNullOrUndefined;
 
 function isNumber(arg) {
   return typeof arg === 'number';
 }
-exports.isNumber = isNumber;
+/* common-shake removed: exports.isNumber = */ void isNumber;
 
 function isString(arg) {
   return typeof arg === 'string';
 }
-exports.isString = isString;
+/* common-shake removed: exports.isString = */ void isString;
 
 function isSymbol(arg) {
   return typeof arg === 'symbol';
 }
-exports.isSymbol = isSymbol;
+/* common-shake removed: exports.isSymbol = */ void isSymbol;
 
 function isUndefined(arg) {
   return arg === void 0;
 }
-exports.isUndefined = isUndefined;
+/* common-shake removed: exports.isUndefined = */ void isUndefined;
 
 function isRegExp(re) {
   return isObject(re) && objectToString(re) === '[object RegExp]';
@@ -34161,7 +34146,7 @@ exports.isRegExp = isRegExp;
 function isObject(arg) {
   return typeof arg === 'object' && arg !== null;
 }
-exports.isObject = isObject;
+/* common-shake removed: exports.isObject = */ void isObject;
 
 function isDate(d) {
   return isObject(d) && objectToString(d) === '[object Date]';
@@ -34189,7 +34174,7 @@ function isPrimitive(arg) {
 }
 exports.isPrimitive = isPrimitive;
 
-exports.isBuffer = require('./support/isBuffer');
+/* common-shake removed: exports.isBuffer = */ void require('./support/isBuffer');
 
 function objectToString(o) {
   return Object.prototype.toString.call(o);
@@ -34215,7 +34200,7 @@ function timestamp() {
 
 
 // log is just a thin wrapper to console.log that prepends a timestamp
-exports.log = function() {
+/* common-shake removed: exports.log = */ void function() {
   console.log('%s - %s', timestamp(), exports.format.apply(exports, arguments));
 };
 
@@ -34252,41 +34237,10 @@ function hasOwnProperty(obj, prop) {
 }
 
 }).call(this)}).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./support/isBuffer":300,"_process":328,"inherits":299}],302:[function(require,module,exports){
-(function (global){(function (){
-'use strict';
-
-var possibleNames = [
-	'BigInt64Array',
-	'BigUint64Array',
-	'Float32Array',
-	'Float64Array',
-	'Int16Array',
-	'Int32Array',
-	'Int8Array',
-	'Uint16Array',
-	'Uint32Array',
-	'Uint8Array',
-	'Uint8ClampedArray'
-];
-
-var g = typeof globalThis === 'undefined' ? global : globalThis;
-
-module.exports = function availableTypedArrays() {
-	var out = [];
-	for (var i = 0; i < possibleNames.length; i++) {
-		if (typeof g[possibleNames[i]] === 'function') {
-			out[out.length] = possibleNames[i];
-		}
-	}
-	return out;
-};
-
-}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],303:[function(require,module,exports){
+},{"./support/isBuffer":300,"_process":328,"inherits":299}],303:[function(require,module,exports){
 'use strict'
 
-exports.byteLength = byteLength
+/* common-shake removed: exports.byteLength = */ void byteLength
 exports.toByteArray = toByteArray
 exports.fromByteArray = fromByteArray
 
@@ -36286,213 +36240,213 @@ if ($defineProperty) {
 
 },{"function-bind":312,"get-intrinsic":313}],308:[function(require,module,exports){
 module.exports={
-  "O_RDONLY": 0,
+  /* common-shake removed: "O_RDONLY": 0 */
   "O_WRONLY": 1,
-  "O_RDWR": 2,
-  "S_IFMT": 61440,
-  "S_IFREG": 32768,
-  "S_IFDIR": 16384,
-  "S_IFCHR": 8192,
-  "S_IFBLK": 24576,
-  "S_IFIFO": 4096,
-  "S_IFLNK": 40960,
-  "S_IFSOCK": 49152,
-  "O_CREAT": 512,
-  "O_EXCL": 2048,
-  "O_NOCTTY": 131072,
-  "O_TRUNC": 1024,
-  "O_APPEND": 8,
-  "O_DIRECTORY": 1048576,
-  "O_NOFOLLOW": 256,
-  "O_SYNC": 128,
+  /* common-shake removed: "O_RDWR": 2 */
+  /* common-shake removed: "S_IFMT": 61440 */
+  /* common-shake removed: "S_IFREG": 32768 */
+  /* common-shake removed: "S_IFDIR": 16384 */
+  /* common-shake removed: "S_IFCHR": 8192 */
+  /* common-shake removed: "S_IFBLK": 24576 */
+  /* common-shake removed: "S_IFIFO": 4096 */
+  /* common-shake removed: "S_IFLNK": 40960 */
+  /* common-shake removed: "S_IFSOCK": 49152 */
+  /* common-shake removed: "O_CREAT": 512 */
+  /* common-shake removed: "O_EXCL": 2048 */
+  /* common-shake removed: "O_NOCTTY": 131072 */
+  /* common-shake removed: "O_TRUNC": 1024 */
+  /* common-shake removed: "O_APPEND": 8 */
+  /* common-shake removed: "O_DIRECTORY": 1048576 */
+  /* common-shake removed: "O_NOFOLLOW": 256 */
+  /* common-shake removed: "O_SYNC": 128 */
   "O_SYMLINK": 2097152,
-  "O_NONBLOCK": 4,
-  "S_IRWXU": 448,
-  "S_IRUSR": 256,
-  "S_IWUSR": 128,
-  "S_IXUSR": 64,
-  "S_IRWXG": 56,
-  "S_IRGRP": 32,
-  "S_IWGRP": 16,
-  "S_IXGRP": 8,
-  "S_IRWXO": 7,
-  "S_IROTH": 4,
-  "S_IWOTH": 2,
-  "S_IXOTH": 1,
-  "E2BIG": 7,
-  "EACCES": 13,
-  "EADDRINUSE": 48,
-  "EADDRNOTAVAIL": 49,
-  "EAFNOSUPPORT": 47,
-  "EAGAIN": 35,
-  "EALREADY": 37,
-  "EBADF": 9,
-  "EBADMSG": 94,
-  "EBUSY": 16,
-  "ECANCELED": 89,
-  "ECHILD": 10,
-  "ECONNABORTED": 53,
-  "ECONNREFUSED": 61,
-  "ECONNRESET": 54,
-  "EDEADLK": 11,
-  "EDESTADDRREQ": 39,
-  "EDOM": 33,
-  "EDQUOT": 69,
-  "EEXIST": 17,
-  "EFAULT": 14,
-  "EFBIG": 27,
-  "EHOSTUNREACH": 65,
-  "EIDRM": 90,
-  "EILSEQ": 92,
-  "EINPROGRESS": 36,
-  "EINTR": 4,
-  "EINVAL": 22,
-  "EIO": 5,
-  "EISCONN": 56,
-  "EISDIR": 21,
-  "ELOOP": 62,
-  "EMFILE": 24,
-  "EMLINK": 31,
-  "EMSGSIZE": 40,
-  "EMULTIHOP": 95,
-  "ENAMETOOLONG": 63,
-  "ENETDOWN": 50,
-  "ENETRESET": 52,
-  "ENETUNREACH": 51,
-  "ENFILE": 23,
-  "ENOBUFS": 55,
-  "ENODATA": 96,
-  "ENODEV": 19,
-  "ENOENT": 2,
-  "ENOEXEC": 8,
-  "ENOLCK": 77,
-  "ENOLINK": 97,
-  "ENOMEM": 12,
-  "ENOMSG": 91,
-  "ENOPROTOOPT": 42,
-  "ENOSPC": 28,
-  "ENOSR": 98,
-  "ENOSTR": 99,
-  "ENOSYS": 78,
-  "ENOTCONN": 57,
-  "ENOTDIR": 20,
-  "ENOTEMPTY": 66,
-  "ENOTSOCK": 38,
-  "ENOTSUP": 45,
-  "ENOTTY": 25,
-  "ENXIO": 6,
-  "EOPNOTSUPP": 102,
-  "EOVERFLOW": 84,
-  "EPERM": 1,
-  "EPIPE": 32,
-  "EPROTO": 100,
-  "EPROTONOSUPPORT": 43,
-  "EPROTOTYPE": 41,
-  "ERANGE": 34,
-  "EROFS": 30,
-  "ESPIPE": 29,
-  "ESRCH": 3,
-  "ESTALE": 70,
-  "ETIME": 101,
-  "ETIMEDOUT": 60,
-  "ETXTBSY": 26,
-  "EWOULDBLOCK": 35,
-  "EXDEV": 18,
-  "SIGHUP": 1,
-  "SIGINT": 2,
-  "SIGQUIT": 3,
-  "SIGILL": 4,
-  "SIGTRAP": 5,
-  "SIGABRT": 6,
-  "SIGIOT": 6,
-  "SIGBUS": 10,
-  "SIGFPE": 8,
-  "SIGKILL": 9,
-  "SIGUSR1": 30,
-  "SIGSEGV": 11,
-  "SIGUSR2": 31,
-  "SIGPIPE": 13,
-  "SIGALRM": 14,
-  "SIGTERM": 15,
-  "SIGCHLD": 20,
-  "SIGCONT": 19,
-  "SIGSTOP": 17,
-  "SIGTSTP": 18,
-  "SIGTTIN": 21,
-  "SIGTTOU": 22,
-  "SIGURG": 16,
-  "SIGXCPU": 24,
-  "SIGXFSZ": 25,
-  "SIGVTALRM": 26,
-  "SIGPROF": 27,
-  "SIGWINCH": 28,
-  "SIGIO": 23,
-  "SIGSYS": 12,
-  "SSL_OP_ALL": 2147486719,
-  "SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION": 262144,
-  "SSL_OP_CIPHER_SERVER_PREFERENCE": 4194304,
-  "SSL_OP_CISCO_ANYCONNECT": 32768,
-  "SSL_OP_COOKIE_EXCHANGE": 8192,
-  "SSL_OP_CRYPTOPRO_TLSEXT_BUG": 2147483648,
-  "SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS": 2048,
-  "SSL_OP_EPHEMERAL_RSA": 0,
-  "SSL_OP_LEGACY_SERVER_CONNECT": 4,
-  "SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER": 32,
-  "SSL_OP_MICROSOFT_SESS_ID_BUG": 1,
-  "SSL_OP_MSIE_SSLV2_RSA_PADDING": 0,
-  "SSL_OP_NETSCAPE_CA_DN_BUG": 536870912,
-  "SSL_OP_NETSCAPE_CHALLENGE_BUG": 2,
-  "SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG": 1073741824,
-  "SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG": 8,
-  "SSL_OP_NO_COMPRESSION": 131072,
-  "SSL_OP_NO_QUERY_MTU": 4096,
-  "SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION": 65536,
-  "SSL_OP_NO_SSLv2": 16777216,
-  "SSL_OP_NO_SSLv3": 33554432,
-  "SSL_OP_NO_TICKET": 16384,
-  "SSL_OP_NO_TLSv1": 67108864,
-  "SSL_OP_NO_TLSv1_1": 268435456,
-  "SSL_OP_NO_TLSv1_2": 134217728,
-  "SSL_OP_PKCS1_CHECK_1": 0,
-  "SSL_OP_PKCS1_CHECK_2": 0,
-  "SSL_OP_SINGLE_DH_USE": 1048576,
-  "SSL_OP_SINGLE_ECDH_USE": 524288,
-  "SSL_OP_SSLEAY_080_CLIENT_DH_BUG": 128,
-  "SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG": 0,
-  "SSL_OP_TLS_BLOCK_PADDING_BUG": 512,
-  "SSL_OP_TLS_D5_BUG": 256,
-  "SSL_OP_TLS_ROLLBACK_BUG": 8388608,
-  "ENGINE_METHOD_DSA": 2,
-  "ENGINE_METHOD_DH": 4,
-  "ENGINE_METHOD_RAND": 8,
-  "ENGINE_METHOD_ECDH": 16,
-  "ENGINE_METHOD_ECDSA": 32,
-  "ENGINE_METHOD_CIPHERS": 64,
-  "ENGINE_METHOD_DIGESTS": 128,
-  "ENGINE_METHOD_STORE": 256,
-  "ENGINE_METHOD_PKEY_METHS": 512,
-  "ENGINE_METHOD_PKEY_ASN1_METHS": 1024,
-  "ENGINE_METHOD_ALL": 65535,
-  "ENGINE_METHOD_NONE": 0,
-  "DH_CHECK_P_NOT_SAFE_PRIME": 2,
-  "DH_CHECK_P_NOT_PRIME": 1,
-  "DH_UNABLE_TO_CHECK_GENERATOR": 4,
-  "DH_NOT_SUITABLE_GENERATOR": 8,
-  "NPN_ENABLED": 1,
-  "RSA_PKCS1_PADDING": 1,
-  "RSA_SSLV23_PADDING": 2,
-  "RSA_NO_PADDING": 3,
-  "RSA_PKCS1_OAEP_PADDING": 4,
-  "RSA_X931_PADDING": 5,
-  "RSA_PKCS1_PSS_PADDING": 6,
-  "POINT_CONVERSION_COMPRESSED": 2,
-  "POINT_CONVERSION_UNCOMPRESSED": 4,
-  "POINT_CONVERSION_HYBRID": 6,
-  "F_OK": 0,
-  "R_OK": 4,
-  "W_OK": 2,
-  "X_OK": 1,
-  "UV_UDP_REUSEADDR": 4
+  /* common-shake removed: "O_NONBLOCK": 4 */
+  /* common-shake removed: "S_IRWXU": 448 */
+  /* common-shake removed: "S_IRUSR": 256 */
+  /* common-shake removed: "S_IWUSR": 128 */
+  /* common-shake removed: "S_IXUSR": 64 */
+  /* common-shake removed: "S_IRWXG": 56 */
+  /* common-shake removed: "S_IRGRP": 32 */
+  /* common-shake removed: "S_IWGRP": 16 */
+  /* common-shake removed: "S_IXGRP": 8 */
+  /* common-shake removed: "S_IRWXO": 7 */
+  /* common-shake removed: "S_IROTH": 4 */
+  /* common-shake removed: "S_IWOTH": 2 */
+  /* common-shake removed: "S_IXOTH": 1 */
+  /* common-shake removed: "E2BIG": 7 */
+  /* common-shake removed: "EACCES": 13 */
+  /* common-shake removed: "EADDRINUSE": 48 */
+  /* common-shake removed: "EADDRNOTAVAIL": 49 */
+  /* common-shake removed: "EAFNOSUPPORT": 47 */
+  /* common-shake removed: "EAGAIN": 35 */
+  /* common-shake removed: "EALREADY": 37 */
+  /* common-shake removed: "EBADF": 9 */
+  /* common-shake removed: "EBADMSG": 94 */
+  /* common-shake removed: "EBUSY": 16 */
+  /* common-shake removed: "ECANCELED": 89 */
+  /* common-shake removed: "ECHILD": 10 */
+  /* common-shake removed: "ECONNABORTED": 53 */
+  /* common-shake removed: "ECONNREFUSED": 61 */
+  /* common-shake removed: "ECONNRESET": 54 */
+  /* common-shake removed: "EDEADLK": 11 */
+  /* common-shake removed: "EDESTADDRREQ": 39 */
+  /* common-shake removed: "EDOM": 33 */
+  /* common-shake removed: "EDQUOT": 69 */
+  /* common-shake removed: "EEXIST": 17 */
+  /* common-shake removed: "EFAULT": 14 */
+  /* common-shake removed: "EFBIG": 27 */
+  /* common-shake removed: "EHOSTUNREACH": 65 */
+  /* common-shake removed: "EIDRM": 90 */
+  /* common-shake removed: "EILSEQ": 92 */
+  /* common-shake removed: "EINPROGRESS": 36 */
+  /* common-shake removed: "EINTR": 4 */
+  /* common-shake removed: "EINVAL": 22 */
+  /* common-shake removed: "EIO": 5 */
+  /* common-shake removed: "EISCONN": 56 */
+  /* common-shake removed: "EISDIR": 21 */
+  /* common-shake removed: "ELOOP": 62 */
+  /* common-shake removed: "EMFILE": 24 */
+  /* common-shake removed: "EMLINK": 31 */
+  /* common-shake removed: "EMSGSIZE": 40 */
+  /* common-shake removed: "EMULTIHOP": 95 */
+  /* common-shake removed: "ENAMETOOLONG": 63 */
+  /* common-shake removed: "ENETDOWN": 50 */
+  /* common-shake removed: "ENETRESET": 52 */
+  /* common-shake removed: "ENETUNREACH": 51 */
+  /* common-shake removed: "ENFILE": 23 */
+  /* common-shake removed: "ENOBUFS": 55 */
+  /* common-shake removed: "ENODATA": 96 */
+  /* common-shake removed: "ENODEV": 19 */
+  /* common-shake removed: "ENOENT": 2 */
+  /* common-shake removed: "ENOEXEC": 8 */
+  /* common-shake removed: "ENOLCK": 77 */
+  /* common-shake removed: "ENOLINK": 97 */
+  /* common-shake removed: "ENOMEM": 12 */
+  /* common-shake removed: "ENOMSG": 91 */
+  /* common-shake removed: "ENOPROTOOPT": 42 */
+  /* common-shake removed: "ENOSPC": 28 */
+  /* common-shake removed: "ENOSR": 98 */
+  /* common-shake removed: "ENOSTR": 99 */
+  /* common-shake removed: "ENOSYS": 78 */
+  /* common-shake removed: "ENOTCONN": 57 */
+  /* common-shake removed: "ENOTDIR": 20 */
+  /* common-shake removed: "ENOTEMPTY": 66 */
+  /* common-shake removed: "ENOTSOCK": 38 */
+  /* common-shake removed: "ENOTSUP": 45 */
+  /* common-shake removed: "ENOTTY": 25 */
+  /* common-shake removed: "ENXIO": 6 */
+  /* common-shake removed: "EOPNOTSUPP": 102 */
+  /* common-shake removed: "EOVERFLOW": 84 */
+  /* common-shake removed: "EPERM": 1 */
+  /* common-shake removed: "EPIPE": 32 */
+  /* common-shake removed: "EPROTO": 100 */
+  /* common-shake removed: "EPROTONOSUPPORT": 43 */
+  /* common-shake removed: "EPROTOTYPE": 41 */
+  /* common-shake removed: "ERANGE": 34 */
+  /* common-shake removed: "EROFS": 30 */
+  /* common-shake removed: "ESPIPE": 29 */
+  /* common-shake removed: "ESRCH": 3 */
+  /* common-shake removed: "ESTALE": 70 */
+  /* common-shake removed: "ETIME": 101 */
+  /* common-shake removed: "ETIMEDOUT": 60 */
+  /* common-shake removed: "ETXTBSY": 26 */
+  /* common-shake removed: "EWOULDBLOCK": 35 */
+  /* common-shake removed: "EXDEV": 18 */
+  /* common-shake removed: "SIGHUP": 1 */
+  /* common-shake removed: "SIGINT": 2 */
+  /* common-shake removed: "SIGQUIT": 3 */
+  /* common-shake removed: "SIGILL": 4 */
+  /* common-shake removed: "SIGTRAP": 5 */
+  /* common-shake removed: "SIGABRT": 6 */
+  /* common-shake removed: "SIGIOT": 6 */
+  /* common-shake removed: "SIGBUS": 10 */
+  /* common-shake removed: "SIGFPE": 8 */
+  /* common-shake removed: "SIGKILL": 9 */
+  /* common-shake removed: "SIGUSR1": 30 */
+  /* common-shake removed: "SIGSEGV": 11 */
+  /* common-shake removed: "SIGUSR2": 31 */
+  /* common-shake removed: "SIGPIPE": 13 */
+  /* common-shake removed: "SIGALRM": 14 */
+  /* common-shake removed: "SIGTERM": 15 */
+  /* common-shake removed: "SIGCHLD": 20 */
+  /* common-shake removed: "SIGCONT": 19 */
+  /* common-shake removed: "SIGSTOP": 17 */
+  /* common-shake removed: "SIGTSTP": 18 */
+  /* common-shake removed: "SIGTTIN": 21 */
+  /* common-shake removed: "SIGTTOU": 22 */
+  /* common-shake removed: "SIGURG": 16 */
+  /* common-shake removed: "SIGXCPU": 24 */
+  /* common-shake removed: "SIGXFSZ": 25 */
+  /* common-shake removed: "SIGVTALRM": 26 */
+  /* common-shake removed: "SIGPROF": 27 */
+  /* common-shake removed: "SIGWINCH": 28 */
+  /* common-shake removed: "SIGIO": 23 */
+  /* common-shake removed: "SIGSYS": 12 */
+  /* common-shake removed: "SSL_OP_ALL": 2147486719 */
+  /* common-shake removed: "SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION": 262144 */
+  /* common-shake removed: "SSL_OP_CIPHER_SERVER_PREFERENCE": 4194304 */
+  /* common-shake removed: "SSL_OP_CISCO_ANYCONNECT": 32768 */
+  /* common-shake removed: "SSL_OP_COOKIE_EXCHANGE": 8192 */
+  /* common-shake removed: "SSL_OP_CRYPTOPRO_TLSEXT_BUG": 2147483648 */
+  /* common-shake removed: "SSL_OP_DONT_INSERT_EMPTY_FRAGMENTS": 2048 */
+  /* common-shake removed: "SSL_OP_EPHEMERAL_RSA": 0 */
+  /* common-shake removed: "SSL_OP_LEGACY_SERVER_CONNECT": 4 */
+  /* common-shake removed: "SSL_OP_MICROSOFT_BIG_SSLV3_BUFFER": 32 */
+  /* common-shake removed: "SSL_OP_MICROSOFT_SESS_ID_BUG": 1 */
+  /* common-shake removed: "SSL_OP_MSIE_SSLV2_RSA_PADDING": 0 */
+  /* common-shake removed: "SSL_OP_NETSCAPE_CA_DN_BUG": 536870912 */
+  /* common-shake removed: "SSL_OP_NETSCAPE_CHALLENGE_BUG": 2 */
+  /* common-shake removed: "SSL_OP_NETSCAPE_DEMO_CIPHER_CHANGE_BUG": 1073741824 */
+  /* common-shake removed: "SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG": 8 */
+  /* common-shake removed: "SSL_OP_NO_COMPRESSION": 131072 */
+  /* common-shake removed: "SSL_OP_NO_QUERY_MTU": 4096 */
+  /* common-shake removed: "SSL_OP_NO_SESSION_RESUMPTION_ON_RENEGOTIATION": 65536 */
+  /* common-shake removed: "SSL_OP_NO_SSLv2": 16777216 */
+  /* common-shake removed: "SSL_OP_NO_SSLv3": 33554432 */
+  /* common-shake removed: "SSL_OP_NO_TICKET": 16384 */
+  /* common-shake removed: "SSL_OP_NO_TLSv1": 67108864 */
+  /* common-shake removed: "SSL_OP_NO_TLSv1_1": 268435456 */
+  /* common-shake removed: "SSL_OP_NO_TLSv1_2": 134217728 */
+  /* common-shake removed: "SSL_OP_PKCS1_CHECK_1": 0 */
+  /* common-shake removed: "SSL_OP_PKCS1_CHECK_2": 0 */
+  /* common-shake removed: "SSL_OP_SINGLE_DH_USE": 1048576 */
+  /* common-shake removed: "SSL_OP_SINGLE_ECDH_USE": 524288 */
+  /* common-shake removed: "SSL_OP_SSLEAY_080_CLIENT_DH_BUG": 128 */
+  /* common-shake removed: "SSL_OP_SSLREF2_REUSE_CERT_TYPE_BUG": 0 */
+  /* common-shake removed: "SSL_OP_TLS_BLOCK_PADDING_BUG": 512 */
+  /* common-shake removed: "SSL_OP_TLS_D5_BUG": 256 */
+  /* common-shake removed: "SSL_OP_TLS_ROLLBACK_BUG": 8388608 */
+  /* common-shake removed: "ENGINE_METHOD_DSA": 2 */
+  /* common-shake removed: "ENGINE_METHOD_DH": 4 */
+  /* common-shake removed: "ENGINE_METHOD_RAND": 8 */
+  /* common-shake removed: "ENGINE_METHOD_ECDH": 16 */
+  /* common-shake removed: "ENGINE_METHOD_ECDSA": 32 */
+  /* common-shake removed: "ENGINE_METHOD_CIPHERS": 64 */
+  /* common-shake removed: "ENGINE_METHOD_DIGESTS": 128 */
+  /* common-shake removed: "ENGINE_METHOD_STORE": 256 */
+  /* common-shake removed: "ENGINE_METHOD_PKEY_METHS": 512 */
+  /* common-shake removed: "ENGINE_METHOD_PKEY_ASN1_METHS": 1024 */
+  /* common-shake removed: "ENGINE_METHOD_ALL": 65535 */
+  /* common-shake removed: "ENGINE_METHOD_NONE": 0 */
+  /* common-shake removed: "DH_CHECK_P_NOT_SAFE_PRIME": 2 */
+  /* common-shake removed: "DH_CHECK_P_NOT_PRIME": 1 */
+  /* common-shake removed: "DH_UNABLE_TO_CHECK_GENERATOR": 4 */
+  /* common-shake removed: "DH_NOT_SUITABLE_GENERATOR": 8 */
+  /* common-shake removed: "NPN_ENABLED": 1 */
+  /* common-shake removed: "RSA_PKCS1_PADDING": 1 */
+  /* common-shake removed: "RSA_SSLV23_PADDING": 2 */
+  /* common-shake removed: "RSA_NO_PADDING": 3 */
+  /* common-shake removed: "RSA_PKCS1_OAEP_PADDING": 4 */
+  /* common-shake removed: "RSA_X931_PADDING": 5 */
+  /* common-shake removed: "RSA_PKCS1_PSS_PADDING": 6 */
+  /* common-shake removed: "POINT_CONVERSION_COMPRESSED": 2 */
+  /* common-shake removed: "POINT_CONVERSION_UNCOMPRESSED": 4 */
+  /* common-shake removed: "POINT_CONVERSION_HYBRID": 6 */
+  /* common-shake removed: "F_OK": 0 */
+  /* common-shake removed: "R_OK": 4 */
+  /* common-shake removed: "W_OK": 2 */
+  /* common-shake removed: "X_OK": 1 */
+  /* common-shake removed: "UV_UDP_REUSEADDR": 4 */
 }
 
 },{}],309:[function(require,module,exports){
@@ -37465,25 +37419,7 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return value;
 };
 
-},{"function-bind":312,"has":318,"has-symbols":315}],314:[function(require,module,exports){
-'use strict';
-
-var GetIntrinsic = require('get-intrinsic');
-
-var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
-
-if ($gOPD) {
-	try {
-		$gOPD([], 'length');
-	} catch (e) {
-		// IE 8 has a broken gOPD
-		$gOPD = null;
-	}
-}
-
-module.exports = $gOPD;
-
-},{"get-intrinsic":313}],315:[function(require,module,exports){
+},{"function-bind":312,"has":318,"has-symbols":315}],315:[function(require,module,exports){
 'use strict';
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
@@ -39945,63 +39881,4 @@ function callbackify(original) {
 exports.callbackify = callbackify;
 
 }).call(this)}).call(this,require('_process'))
-},{"./support/isBuffer":347,"./support/types":348,"_process":328,"inherits":320}],350:[function(require,module,exports){
-(function (global){(function (){
-'use strict';
-
-var forEach = require('for-each');
-var availableTypedArrays = require('available-typed-arrays');
-var callBound = require('call-bind/callBound');
-var gOPD = require('gopd');
-
-var $toString = callBound('Object.prototype.toString');
-var hasToStringTag = require('has-tostringtag/shams')();
-
-var g = typeof globalThis === 'undefined' ? global : globalThis;
-var typedArrays = availableTypedArrays();
-
-var $slice = callBound('String.prototype.slice');
-var toStrTags = {};
-var getPrototypeOf = Object.getPrototypeOf; // require('getprototypeof');
-if (hasToStringTag && gOPD && getPrototypeOf) {
-	forEach(typedArrays, function (typedArray) {
-		if (typeof g[typedArray] === 'function') {
-			var arr = new g[typedArray]();
-			if (Symbol.toStringTag in arr) {
-				var proto = getPrototypeOf(arr);
-				var descriptor = gOPD(proto, Symbol.toStringTag);
-				if (!descriptor) {
-					var superProto = getPrototypeOf(proto);
-					descriptor = gOPD(superProto, Symbol.toStringTag);
-				}
-				toStrTags[typedArray] = descriptor.get;
-			}
-		}
-	});
-}
-
-var tryTypedArrays = function tryAllTypedArrays(value) {
-	var foundName = false;
-	forEach(toStrTags, function (getter, typedArray) {
-		if (!foundName) {
-			try {
-				var name = getter.call(value);
-				if (name === typedArray) {
-					foundName = name;
-				}
-			} catch (e) {}
-		}
-	});
-	return foundName;
-};
-
-var isTypedArray = require('is-typed-array');
-
-module.exports = function whichTypedArray(value) {
-	if (!isTypedArray(value)) { return false; }
-	if (!hasToStringTag || !(Symbol.toStringTag in value)) { return $slice($toString(value), 8, -1); }
-	return tryTypedArrays(value);
-};
-
-}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"available-typed-arrays":302,"call-bind/callBound":306,"for-each":310,"gopd":314,"has-tostringtag/shams":317,"is-typed-array":325}]},{},[296]);
+},{"./support/isBuffer":347,"./support/types":348,"_process":328,"inherits":320}]},{},[296]);
