@@ -333,6 +333,10 @@ class Wallet {
 
   // --------- utils
 
+  decodeInvoice(invoice) {
+    return bolt11.decode(invoice);
+  }
+
   sumProofs(proofs) {
     return proofs.reduce((s, t) => (s += t.amount), 0);
   }

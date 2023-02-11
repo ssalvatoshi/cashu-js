@@ -33051,6 +33051,10 @@ class Wallet {
 
   // --------- utils
 
+  decodeInvoice(invoice) {
+    return bolt11.decode(invoice);
+  }
+
   sumProofs(proofs) {
     return proofs.reduce((s, t) => (s += t.amount), 0);
   }
@@ -33101,7 +33105,9 @@ class Wallet {
 if (module && module.exports) {
   module.exports.Wallet = Wallet;
 }
-window.Wallet = Wallet;
+try {
+  window.Wallet = Wallet;
+} catch (error) {}
 
 },{"./base64":293,"./dhke":294,"./utils":295,"@noble/secp256k1":1,"axios":2,"bolt11":98,"node-localstorage":252}],297:[function(require,module,exports){
 

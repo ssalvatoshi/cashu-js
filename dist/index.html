@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<script src="./bundle.min.js"></script>
+<script src="./bundle.js"></script>
 <script>
   MINT_HOST = "127.0.0.1";
   MINT_PORT = 3338;
@@ -12,7 +12,7 @@
 
     try {
       const mintUrl = token.mints[0].url;
-      const wallet = new Wallet();
+      const wallet = new Wallet(mintUrl);
       wallet.loadMint();
       wallet.proofs = token.proofs;
       await wallet.melt(invoice);
@@ -25,7 +25,7 @@
 </script>
 <body>
   <p>
-    Cashu Token
+    Cashu token
     <input type="text" id="token" style="width: 512px" />
   </p>
   <p>
