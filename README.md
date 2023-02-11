@@ -45,11 +45,20 @@ npm install
 ```
 
 ##### Mint tokens and receive Lightnign invoices
+Get a Lightning invoice:
 
 ```sh
-node src/index.js mint 420 <invoice_hash>
+node src/index.js invoice 420
 ```
-Note: If you've set `LIGHTNING=FALSE` in the mint, you can use any `invoice_hash` you want here.
+
+Save the `<invoice_hash>` for the next step (or compute it yourself from the bolt11 invoice).
+
+After paying it, enter:
+
+```sh
+node src/index.js invoice 420 <invoice_hash>
+```
+Where `<invoice_hash>` is the hash of the bolt11 invoice. Note: If you've set `LIGHTNING=FALSE` in the mint, you can use any `invoice_hash` you want here.
 
 ##### Melt tokens and pay Lightnign invoices
 
