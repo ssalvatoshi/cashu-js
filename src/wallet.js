@@ -259,6 +259,33 @@ class Wallet {
     }
   }
 
+  // --------- GET /check
+
+  async checkSpendable(proofs) {
+    const checkSpendableRequest = {
+      proofs: proofs,
+    };
+    try {
+      const checkSpendableResponse = await axios.post(
+        `${this.mintUrl}/check`,
+        checkSpendableRequest
+      );
+      this.assertMintError(checkSpendableResponse);
+      let spentProofs = proofs.filter(
+        (p, pidx) => !checkSpendableResponse.data.spendable[pidx]
+      );
+      var spendable = true;
+      if (spentProofs.length) {
+        this.deleteProofs(spentProofs);
+        spendable = false;
+      }
+      return spendable;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   // --------- GET /checkfees
 
   async checkFees(invoice) {
