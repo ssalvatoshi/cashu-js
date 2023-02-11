@@ -17,11 +17,13 @@ async function hashToCurve(secretMessage) {
   return point;
 }
 
-async function step1Alice(secretMessage) {
+async function step1Alice(secretMessage, r_bytes = null) {
+  if (r_bytes == null) {
+    r_bytes = utils.randomPrivateKey();
+  }
   secretMessage = uint8ToBase64.encode(secretMessage);
   secretMessage = new TextEncoder().encode(secretMessage);
   const Y = await hashToCurve(secretMessage);
-  const r_bytes = utils.randomPrivateKey();
   const r = bytesToNumber(r_bytes);
   const P = Point.fromPrivateKey(r);
   const B_ = Y.add(P);

@@ -47,6 +47,7 @@ async function test_hash_to_curve() {
     "02076c988b353fcbb748178ecb286bc9d0b4acf474d4ba31ba62334e46c97c416a"
   ) {
     console.error("ERROR");
+    console.error(hexY);
   } else {
     console.log("SUCCESS");
   }
@@ -63,15 +64,14 @@ async function test_step1() {
       "0000000000000000000000000000000000000000000000000000000000000001"
     )
   );
-  console.log(B_);
   if (
     B_ !== "02a9acc1e48c25eeeb9289b5031cc57da9fe72f3fe2861d264bdc074209b107ba2"
   ) {
     console.error("ERROR");
+    console.error(B_);
   } else {
     console.log("SUCCESS");
   }
-  console.log(r);
 }
 
 test_step1();
@@ -88,12 +88,12 @@ async function test_step3() {
     "020000000000000000000000000000000000000000000000000000000000000001"
   );
   let C = await dhke.step3Alice(C_, r, A);
-  console.log(C.toHex(true));
   if (
     C.toHex(true) !==
     "03c724d7e6a5443b39ac8acf11f40420adc4f99a02e7cc1b57703d9391f6d129cd"
   ) {
     console.error("ERROR");
+    console.error(C.toHex(true));
   } else {
     console.log("SUCCESS");
   }
