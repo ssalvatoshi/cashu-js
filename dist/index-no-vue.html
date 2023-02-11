@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<script src="./bundle.js"></script>
+<script>
+  MINT_HOST = "127.0.0.1";
+  MINT_PORT = 3338;
+  MINT_SERVER = `http://${MINT_HOST}:${MINT_PORT}`;
+
+  async function pay() {
+    var invoice = document.getElementById("invoice").value;
+    var tokenBase64 = document.getElementById("token").value;
+    var token = JSON.parse(atob(tokenBase64));
+
+    try {
+      const mintUrl = token.mints[0].url;
+      const wallet = new Wallet(mintUrl);
+      wallet.loadMint();
+      wallet.proofs = token.proofs;
+      await wallet.melt(invoice);
+      document.getElementById("output").innerHTML = "Paid";
+    } catch (error) {
+      document.getElementById("output").innerHTML = error;
+      console.error(error);
+    }
+  }
+</script>
+<body>
+  <p>
+    Cashu token
+    <input type="text" id="token" style="width: 512px" />
+  </p>
+  <p>
+    Lightning invoice
+    <input type="text" id="invoice" style="width: 512px" />
+  </p>
+  <p>
+    <button onclick="pay()">Pay</button>
+  </p>
+  <p>
+    Status:
+    <label id="output"></label>
+  </p>
+</body>

@@ -1,42 +1,41 @@
 <!DOCTYPE html>
-<script src="./bundle.js"></script>
-<script>
-  MINT_HOST = "127.0.0.1";
-  MINT_PORT = 3338;
-  MINT_SERVER = `http://${MINT_HOST}:${MINT_PORT}`;
-
-  async function pay() {
-    var invoice = document.getElementById("invoice").value;
-    var tokenBase64 = document.getElementById("token").value;
-    var token = JSON.parse(atob(tokenBase64));
-
-    try {
-      const mintUrl = token.mints[0].url;
-      const wallet = new Wallet(mintUrl);
-      wallet.loadMint();
-      wallet.proofs = token.proofs;
-      await wallet.melt(invoice);
-      document.getElementById("output").innerHTML = "Paid";
-    } catch (error) {
-      document.getElementById("output").innerHTML = error;
-      console.error(error);
-    }
-  }
-</script>
-<body>
-  <p>
-    Cashu token
-    <input type="text" id="token" style="width: 512px" />
-  </p>
-  <p>
-    Lightning invoice
-    <input type="text" id="invoice" style="width: 512px" />
-  </p>
-  <p>
-    <button onclick="pay()">Pay</button>
-  </p>
-  <p>
-    Status:
-    <label id="output"></label>
-  </p>
-</body>
+<html lang="en">
+  <head>
+    <script src="js/jquery-3.6.3.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="js/vue.min.js"></script>
+    <script src="./index.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="./bundle.min.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container text-center" style="padding: 2rem">
+        <div class="row">
+          <p>Pay Lightning invoices by providing a Cashu token.</p>
+        </div>
+        <div class="row">
+          <p>
+            Enter a Lightning invoice:
+            <input type="text" v-model="invoice" id="invoice" />
+            <button v-on:click="checkInvoice" v-if="invoice">Check</button>
+          </p>
+        </div>
+        <div class="row" v-if="amountLabel">
+          <p>{{amountLabel}}</p>
+        </div>
+        <div class="row" v-if="showTokenInput">
+          <p>
+            Enter a Cashu token:
+            <input type="text" v-model="token" id="token" />
+            <button v-on:click="pay" v-if="token">Pay</button>
+          </p>
+        </div>
+        <div class="row" v-if="status">
+          <p style="font-weight: bold">{{status}}</p>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
