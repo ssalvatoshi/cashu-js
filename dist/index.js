@@ -5,6 +5,8 @@ var app = new Vue({
     invoice: "",
     token: "",
     amountLabel: "",
+    mintUrl: "",
+    wallet: null,
     showCheckFeeButton: false,
     showTokenInput: true,
     showPayButton: false,
@@ -15,56 +17,82 @@ var app = new Vue({
   methods: {
     checkToken: async function () {
       try {
+        this.status = "";
         var tokenBase64 = this.token;
         var token = JSON.parse(atob(tokenBase64));
-        const mintUrl = token.mints[0].url;
-        const wallet = new Wallet(mintUrl);
-        wallet.loadMint();
-        let spendable = await wallet.checkSpendable(token.proofs);
+        this.mintUrl = token.mints[0].url;
+        this.wallet = new Wallet(this.mintUrl);
+        this.wallet.loadMint();
+        let spendable = await this.wallet.checkSpendable(token.proofs);
         if (!spendable) {
           throw Error("Token already spent.");
         }
-        let tokenAmount = wallet.sumProofs(token.proofs);
-        this.payAmount = tokenAmount - Math.max(2, tokenAmount * 0.02);
-        this.amountLabel = `Enter Lightning invoice for ${this.payAmount} sats (incl. network fees).`;
+        let tokenAmount = this.wallet.sumProofs(token.proofs);
+        let feeAmount = Math.ceil(Math.max(2, tokenAmount * 0.02));
+        this.payAmount = tokenAmount - feeAmount;
+        if (!(this.payAmount > 0)) {
+          throw Error("Token amount is too low for a Lightning payment.");
+        }
+        this.amountLabel = `Receive ${this.payAmount} sats (incl. ${feeAmount} sats network fees) via Lightning.`;
         this.showInvoiceInput = true;
       } catch (error) {
         this.status = error;
       }
     },
+    checkLnurl: async function () {
+      // check whether the input is an lnurl and replace with bolt11 invoice
+      let address = this.invoice;
+      if (
+        address.split("@").length != 2 &&
+        address.toLowerCase().slice(0, 6) != "lnurl1"
+      ) {
+        return;
+      }
+      this.status = "Resolving LNURL ...";
+      this.invoice = await this.wallet.lnurlPay(address, this.payAmount);
+    },
+
     pay: async function () {
       try {
+        await this.checkLnurl();
         this.status = "";
         var tokenBase64 = this.token;
         var bolt11 = this.invoice;
 
         var token = JSON.parse(atob(tokenBase64));
-        const mintUrl = token.mints[0].url;
-        const wallet = new Wallet(mintUrl);
-        this.decodedInvoice = wallet.decodeInvoice(bolt11);
+        this.decodedInvoice = this.wallet.decodeInvoice(bolt11);
 
         // check if tokens are actually enough by checking the fees
         const amountWithFees =
-          this.decodedInvoice.satoshis + (await wallet.checkFees(this.invoice));
+          this.decodedInvoice.satoshis +
+          (await this.wallet.checkFees(this.invoice));
 
         // check if tokens are worth the payAmount
-        if (wallet.sumProofs(token.proofs) < amountWithFees) {
+        if (this.wallet.sumProofs(token.proofs) < amountWithFees) {
           throw Error(
-            `Token amount too low (${wallet.sumProofs(
+            `Token amount too low (${this.wallet.sumProofs(
               token.proofs
             )} instead of ${amountWithFees})`
           );
         }
 
-        wallet.loadMint();
-        wallet.proofs = token.proofs;
+        this.wallet.loadMint();
+        this.wallet.proofs = token.proofs;
         this.status = "Paying invoice ...";
-        await wallet.melt(this.invoice);
+        await this.wallet.melt(this.invoice);
         this.status = "Invoice paid ⚡️";
       } catch (error) {
         this.status = error;
       }
     },
   },
-  mounted() {},
+  created() {
+    let params = new URL(document.location).searchParams;
+    if (params.get("lnurl")) {
+      this.invoice = params.get("lnurl");
+    }
+    if (params.get("token")) {
+      this.token = params.get("token");
+    }
+  },
 });

@@ -4,6 +4,7 @@ const dhke = require("./dhke");
 const { splitAmount, bytesToNumber, bigIntStringify } = require("./utils");
 const { uint8ToBase64 } = require("./base64");
 const bolt11 = require("bolt11");
+const bech32 = require("bech32");
 
 // local storage for node
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -382,6 +383,41 @@ class Wallet {
       mints,
     };
     return btoa(JSON.stringify(token));
+  }
+
+  // lnurlpay
+
+  async lnurlPay(address, amount) {
+    if (
+      (address.split("@").length != 2 ||
+        address.toLowerCase().slice(0, 6) != "lnurl1") &&
+      !(amount > 0)
+    ) {
+      throw Error("wrong input.");
+    }
+
+    if (address.split("@").length == 2) {
+      let [user, host] = address.split("@");
+      var { data } = await axios.get(
+        `https://${host}/.well-known/lnurlp/${user}`
+      );
+    } else if (address.toLowerCase().slice(0, 6) === "lnurl1") {
+      let host = Buffer.from(
+        bech32.fromWords(bech32.decode(address, 20000).words)
+      ).toString();
+      var { data } = await axios.get(host);
+    }
+
+    if (
+      data.tag == "payRequest" &&
+      data.minSendable <= amount * 1000 <= data.maxSendable
+    ) {
+      var { data } = await axios.get(
+        `${data.callback}?amount=${amount * 1000}`
+      );
+      console.log(data.pr);
+      return data.pr;
+    }
   }
 
   // local storage

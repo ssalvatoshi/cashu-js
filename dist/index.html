@@ -3,12 +3,10 @@
   <head>
     <title>Cashu swap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Redeem Cashu tokens and pay Lightning invoices."
-    />
+    <meta name="description" content="Redeem Cashu tokens" />
     <script src="js/jquery-3.6.3.min.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="icon" href="favicon.ico" />
     <script src="js/vue.min.js"></script>
     <script src="./index.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
@@ -18,7 +16,7 @@
     <div id="app">
       <div class="container" style="padding: 2rem">
         <div class="row">
-          <p>Redeem Cashu ecash tokens and pay Bitcoin Lightning invoices.</p>
+          <p>Redeem Cashu ecash tokens for Bitcoin over Lightning.</p>
         </div>
         <div class="row" v-if="showTokenInput">
           <div class="input-group mb-3">
@@ -32,14 +30,16 @@
               v-model="token"
               id="token"
             />
-            <button
-              type="button"
-              class="btn btn-primary"
-              v-on:click="checkToken"
-              v-if="token"
-            >
-              Check
-            </button>
+            <div class="input-group-append">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                v-on:click="checkToken"
+                v-if="token"
+              >
+                Check
+              </button>
+            </div>
           </div>
         </div>
         <div class="row" v-if="amountLabel">
@@ -55,14 +55,14 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Enter a Lightning invoice"
+              placeholder="Enter Lightning invoice or LNURL or Lightning address"
               v-model="invoice"
               id="invoice"
             />
             <div class="input-group-append">
               <button
                 type="button"
-                class="btn btn-primary"
+                class="btn btn-outline-secondary"
                 v-on:click="pay"
                 v-if="token"
               >

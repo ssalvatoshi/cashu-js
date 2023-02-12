@@ -46,6 +46,9 @@ async function run() {
       break;
     case "balance":
       break;
+    case "lnurl":
+      await wallet.lnurlPay(process.argv[3], process.argv[4]);
+      break;
     default:
       console.log(`Command '${command}' not supported`);
       break;

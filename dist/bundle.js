@@ -3670,7 +3670,7 @@ module.exports = {
   /* common-shake removed: toWordsUnsafe: toWordsUnsafe */
   toWords: toWords,
   /* common-shake removed: fromWordsUnsafe: fromWordsUnsafe */
-  /* common-shake removed: fromWords: fromWords */
+  fromWords: fromWords
 }
 
 },{}],36:[function(require,module,exports){
@@ -32716,12 +32716,14 @@ module.exports = {
 };
 
 },{"@noble/secp256k1":1}],296:[function(require,module,exports){
+(function (Buffer){(function (){
 const axios = require("axios").default;
 const { utils, Point } = require("@noble/secp256k1");
 const dhke = require("./dhke");
 const { splitAmount, bytesToNumber, bigIntStringify } = require("./utils");
 const { uint8ToBase64 } = require("./base64");
 const bolt11 = require("bolt11");
+const bech32 = require("bech32");
 
 // local storage for node
 if (typeof localStorage === "undefined" || localStorage === null) {
@@ -33102,6 +33104,41 @@ class Wallet {
     return btoa(JSON.stringify(token));
   }
 
+  // lnurlpay
+
+  async lnurlPay(address, amount) {
+    if (
+      (address.split("@").length != 2 ||
+        address.toLowerCase().slice(0, 6) != "lnurl1") &&
+      !(amount > 0)
+    ) {
+      throw Error("wrong input.");
+    }
+
+    if (address.split("@").length == 2) {
+      let [user, host] = address.split("@");
+      var { data } = await axios.get(
+        `https://${host}/.well-known/lnurlp/${user}`
+      );
+    } else if (address.toLowerCase().slice(0, 6) === "lnurl1") {
+      let host = Buffer.from(
+        bech32.fromWords(bech32.decode(address, 20000).words)
+      ).toString();
+      var { data } = await axios.get(host);
+    }
+
+    if (
+      data.tag == "payRequest" &&
+      data.minSendable <= amount * 1000 <= data.maxSendable
+    ) {
+      var { data } = await axios.get(
+        `${data.callback}?amount=${amount * 1000}`
+      );
+      console.log(data.pr);
+      return data.pr;
+    }
+  }
+
   // local storage
 
   storeProofs() {
@@ -33136,7 +33173,8 @@ try {
   window.Wallet = Wallet;
 } catch (error) {}
 
-},{"./base64":293,"./dhke":294,"./utils":295,"@noble/secp256k1":1,"axios":2,"bolt11":98,"node-localstorage":252}],297:[function(require,module,exports){
+}).call(this)}).call(this,require("buffer").Buffer)
+},{"./base64":293,"./dhke":294,"./utils":295,"@noble/secp256k1":1,"axios":2,"bech32":35,"bolt11":98,"buffer":305,"node-localstorage":252}],297:[function(require,module,exports){
 
 },{}],298:[function(require,module,exports){
 (function (global){(function (){
