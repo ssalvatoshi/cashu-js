@@ -44,6 +44,16 @@ describe('test', () => {
 		expect(B_).not.toBe("02a9acc1e48c25eeeb9289b5031cc57da9fe72f3fe2861d264bdc074209b107ba2")
 	})
 
+	test('test step2', async () => {
+		var enc = new TextEncoder();
+		let secretUInt8 = enc.encode("test_message");
+		let {B_,r} = await dhke.step1Alice(secretUInt8, utils.hexToBytes("0000000000000000000000000000000000000000000000000000000000000001"));
+		let A = Point.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
+		let C_ = await dhke.step2Bob(B_, r, A);
+		expect(C_).not.toBe("02a9acc1e48c25eeeb9289b5031cc57da9fe72f3fe2861d264bdc074209b107ba2")
+	})
+
+
 	test('test step3', async () => {
 		// I had to delete the first two character "02" from here
 		let C_ = Point.fromHex(

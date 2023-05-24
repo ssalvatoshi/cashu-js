@@ -30,10 +30,21 @@ async function step1Alice(secretMessage, r_bytes = null) {
   return { B_: B_.toHex(true), r: utils.bytesToHex(r_bytes) };
 }
 
+function step2Bob(B_, A) {
+  const C_=B_.multiply(A);
+  return C_;
+}
+
+
 function step3Alice(C_, r, A) {
   const rInt = bytesToNumber(r);
   const C = C_.subtract(A.multiply(rInt));
   return C;
+}
+
+function verify(a, C, secretMessage) {
+  Y = hashToCurve(secretMessage);
+  return C===Y.multiply(a);
 }
 
 module.exports = {
